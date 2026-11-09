@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>DERICK AFTERPARTY · Permanent Interior</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #F4EFE6;
+      --paper-deep: #EAE2D3;
+      --ink: #161514;
+      --ink-muted: #5A554C;
+      --ink-faint: #9A9284;
+      --vermilion: #C83E2B;
+      --cobalt: #1D4ED8;
+      --ochre: #B4690E;
+      --rule: rgba(22, 21, 20, 0.14);
+      --rule-strong: rgba(22, 21, 20, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--paper);
+      color: var(--ink);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .serif-display {
+      font-family: 'Instrument Serif', Georgia, serif;
+    }
+
+    .mono-meta {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Custom Range Slider for the Tension Caliper */
+    input[type="range"].caliper-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 36px;
+      background: transparent;
+      cursor: ew-resize;
+      margin: 0;
+    }
+
+    input[type="range"].caliper-slider:focus {
+      outline: none;
+    }
+
+    input[type="range"].caliper-slider::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 2px;
+      background: var(--ink);
+      position: relative;
+    }
+
+    input[type="range"].caliper-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 28px;
+      width: 18px;
+      background: var(--vermilion);
+      border: 2px solid var(--ink);
+      margin-top: -13px;
+      border-radius: 2px;
+      box-shadow: 2px 2px 0px var(--ink);
+      transition: transform 0.12s ease, background-color 0.12s ease;
+    }
+
+    input[type="range"].caliper-slider::-webkit-slider-thumb:hover,
+    input[type="range"].caliper-slider::-webkit-slider-thumb:active {
+      transform: scaleY(1.15);
+      background: var(--ink);
+    }
+
+    input[type="range"].caliper-slider::-moz-range-track {
+      width: 100%;
+      height: 2px;
+      background: var(--ink);
+    }
+
+    input[type="range"].caliper-slider::-moz-range-thumb {
+      height: 28px;
+      width: 18px;
+      background: var(--vermilion);
+      border: 2px solid var(--ink);
+      border-radius: 2px;
+      box-shadow: 2px 2px 0px var(--ink);
+      transition: transform 0.12s ease;
+    }
+
+    /* Architectural transitions */
+    .stratum-row {
+      transition: all 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    .stratum-row[data-focused="true"] {
+      background-color: #EFE8DA;
+      border-bottom-color: var(--ink);
+    }
+
+    .stratum-row[data-receded="true"] {
+      opacity: 0.32;
+    }
+
+    /* Architectural Span Bar */
+    .span-cell {
+      height: 26px;
+      border-right: 1px dashed rgba(22, 21, 20, 0.12);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .span-cell:last-child {
+      border-right: none;
+    }
+
+    /* Undated span: the horizon is known, its endpoints are not */
+    .undated-span {
+      width: 100%;
+      height: 0;
+      border-top: 2px dashed var(--vermilion);
+      display: block;
+    }
+
+    /* Subtle paper texture via pure CSS gradients */
+    .architectural-sheet {
+      background-image:
+        linear-gradient(to right, rgba(22, 21, 20, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(22, 21, 20, 0.03) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    .focus-ring:focus-visible {
+      outline: 2px solid var(--vermilion);
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body class="architectural-sheet min-h-screen flex flex-col justify-between">
+
+  <!-- TOP EDITORIAL BAR -->
+  <header class="border-b border-[var(--rule-strong)] bg-[var(--paper)]/95 sticky top-0 z-30 backdrop-blur-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-3">
+        <span class="mono-meta text-[11px] font-medium tracking-[0.16em] uppercase px-2 py-0.5 bg-[var(--ink)] text-[var(--paper)]">
+          DERICK AFTERPARTY
+        </span>
+        <span class="mono-meta text-[11px] tracking-[0.08em] uppercase text-[var(--ink-muted)]">
+          Editorial Room · Permanent Interior
+        </span>
+      </div>
+      <div class="flex items-center gap-4">
+        <span class="mono-meta text-[11px] text-[var(--ink-muted)] hidden sm:inline">
+          Preserved Corpus: 2016–2025 (10 Calendar Years)
+        </span>
+        <button id="toggleNoteBtn" type="button" class="focus-ring mono-meta text-[11px] uppercase tracking-wider underline decoration-1 underline-offset-4 hover:text-[var(--vermilion)] transition-colors">
+          Editorial Provenance
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WORKSPACE -->
+  <main class="max-w-6xl w-full mx-auto px-4 sm:px-6 pt-6 pb-16 flex-grow">
+
+    <!-- HERO & CONCEPTUAL PREMISE -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-6 pb-6 border-b border-[var(--rule-strong)] items-end">
+      <div class="lg:col-span-7">
+        <p class="mono-meta text-[11px] uppercase tracking-[0.15em] text-[var(--vermilion)] mb-2">
+          Section 20 · Canonical Master Material
+        </p>
+        <h1 class="serif-display text-5xl sm:text-6xl lg:text-7xl leading-[0.94] tracking-tight text-[var(--ink)]">
+          Permanent Interior
+        </h1>
+        <p class="mt-4 text-sm sm:text-base text-[var(--ink-muted)] max-w-2xl leading-relaxed">
+          What does it mean for certain music to stay inside a life across ten years—or to vanish for long stretches and return without turning every silence into an emotional event? Persistence does not require constant frequency.
+        </p>
+      </div>
+
+      <!-- LIVE DIAGNOSTIC READOUT OF CURRENT CALIPER LENS -->
+      <div class="lg:col-span-5 bg-[var(--paper-deep)] border border-[var(--ink)] p-4 sm:p-5 shadow-[4px_4px_0px_#161514]" aria-live="polite">
+        <div class="flex items-center justify-between gap-2 border-b border-[var(--rule-strong)] pb-2 mb-3">
+          <span class="mono-meta text-[10px] uppercase tracking-[0.16em] text-[var(--ink-muted)]">
+            Active Reading Lens
+          </span>
+          <span id="lensCoordinate" class="mono-meta text-xs font-medium text-[var(--vermilion)] text-right">
+            INDEX: 050 / EQUILIBRIUM
+          </span>
+        </div>
+        <h2 id="lensHeadline" class="serif-display text-2xl sm:text-3xl leading-tight text-[var(--ink)]">
+          Full Ten-Year Architectural Section
+        </h2>
+        <p id="lensDescription" class="mt-1.5 text-xs sm:text-sm text-[var(--ink-muted)] leading-relaxed">
+          All ten canonical song-artist relationships held in equal view alongside the contemporary pop, club, and internet artists that shared the same years.
+        </p>
+      </div>
+    </section>
+
+    <!-- PRIMARY INTERACTIVE INSTRUMENT: THE PERSISTENCE / RETURN CALIPER & COEXISTENCE COUPLE -->
+    <section aria-label="Archive Tension Controls" class="py-6 border-b border-[var(--rule-strong)] bg-[var(--paper)]">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+
+        <!-- Caliper Slider Control -->
+        <div class="lg:col-span-7 space-y-2">
+          <div class="flex justify-between items-baseline gap-2">
+            <button type="button" data-preset="0" class="preset-btn focus-ring text-left group">
+              <span class="mono-meta text-[10px] uppercase tracking-[0.14em] block text-[var(--ink-muted)] group-hover:text-[var(--vermilion)]">
+                Pole 01
+              </span>
+              <span class="text-xs sm:text-sm font-semibold tracking-tight underline decoration-dotted underline-offset-4">
+                Unbroken Annual Anchor
+              </span>
+            </button>
+
+            <button type="button" data-preset="50" class="preset-btn focus-ring text-center group">
+              <span class="mono-meta text-[10px] uppercase tracking-[0.14em] block text-[var(--ink-muted)] group-hover:text-[var(--vermilion)]">
+                Center
+              </span>
+              <span class="text-xs font-medium text-[var(--ink-muted)] underline decoration-dotted underline-offset-4">
+                Full Room (50)
+              </span>
+            </button>
+
+            <button type="button" data-preset="100" class="preset-btn focus-ring text-right group">
+              <span class="mono-meta text-[10px] uppercase tracking-[0.14em] block text-[var(--ink-muted)] group-hover:text-[var(--vermilion)]">
+                Pole 02
+              </span>
+              <span class="text-xs sm:text-sm font-semibold tracking-tight underline decoration-dotted underline-offset-4">
+                Long-Horizon / Quiet Return
+              </span>
+            </button>
+          </div>
+
+          <div class="relative py-1 flex items-center">
+            <label for="tensionSlider" class="sr-only">Shift between Continuous Annual Presence and Long-Gap Return</label>
+            <input
+              id="tensionSlider"
+              type="range"
+              min="0"
+              max="100"
+              value="50"
+              class="caliper-slider focus-ring"
+            />
+          </div>
+
+          <div class="flex justify-between gap-3 mono-meta text-[10px] text-[var(--ink-faint)]">
+            <span>◄ Every recorded year (Mazzy Star, all 10)</span>
+            <span class="hidden sm:inline">Drag, or use ← / → keys</span>
+            <span class="text-right">8+ yr span, low total / late return (Paper Bag, Air '22) ►</span>
+          </div>
+        </div>
+
+        <!-- Coexistence Field Selector (Old was not replaced by new) -->
+        <div class="lg:col-span-5 border-t lg:border-t-0 lg:border-l border-[var(--rule-strong)] pt-4 lg:pt-0 lg:pl-6">
+          <div class="flex items-center justify-between mb-2">
+            <span class="mono-meta text-[10px] uppercase tracking-[0.15em] text-[var(--ink)] font-medium">
+              Coexistence Field (Old Was Not Replaced By New)
+            </span>
+            <button id="clearCoexistBtn" type="button" class="focus-ring mono-meta text-[10px] uppercase text-[var(--vermilion)] hidden hover:underline">
+              Reset Filter ×
+            </button>
+          </div>
+          <p class="text-xs text-[var(--ink-muted)] mb-3 leading-snug">
+            Tap a coexisting artist from Derick’s history to see how irreverent pop, club, and internet music shared the same room as the Permanent Interior canon:
+          </p>
+          <div id="coexistenceContainer" class="flex flex-wrap gap-1.5" role="group" aria-label="Coexisting artists in the archive">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- WORKSPACE SPLIT: LEFT = 10 CANONICAL STRATA | RIGHT = ARCHITECTURAL INSPECTION SHEET -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-6 items-start">
+
+      <!-- LEFT 7 COLS: THE 10 CANONICAL PAIRS (INTERACTIVE STRATIGRAPHY) -->
+      <div class="lg:col-span-7">
+        <div class="flex items-center justify-between gap-2 pb-2 border-b-2 border-[var(--ink)]">
+          <span class="mono-meta text-[11px] uppercase tracking-[0.14em] font-medium">
+            Canonical Pair (Artist — Song)
+          </span>
+          <span class="mono-meta text-[11px] uppercase tracking-[0.14em] text-[var(--ink-muted)] text-right">
+            Year Evidence (2016–2025)
+          </span>
+        </div>
+
+        <!-- Dynamic List of 10 Canonical Pairs -->
+        <div id="canonicalList" role="listbox" aria-label="Ten Canonical Artist and Song Pairs. Use up and down arrow keys to move." class="divide-y divide-[var(--rule)]">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Legend for the Architectural Bar -->
+        <div class="mt-4 pt-3 border-t border-[var(--rule)] flex flex-col gap-2 mono-meta text-[11px] text-[var(--ink-muted)]">
+          <div class="flex flex-wrap items-center gap-x-4 gap-y-1.5">
+            <span class="inline-flex items-center gap-1.5">
+              <span class="w-3 h-3 bg-[var(--ink)] inline-block"></span> Documented presence that year
+            </span>
+            <span class="inline-flex items-center gap-1.5">
+              <span class="w-3 h-3 bg-[var(--vermilion)] border border-[var(--ink)] inline-block"></span> Documented strong return
+            </span>
+            <span class="inline-flex items-center gap-1.5">
+              <span class="w-4 inline-block border-t-2 border-dashed border-[var(--vermilion)]"></span> 8+ yr span, endpoints not recorded here
+            </span>
+            <span class="inline-flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-[var(--ink-faint)]/50 inline-block"></span> No year-level claim
+            </span>
+          </div>
+          <span>Only year-level facts stated in the July 2026 analysis are drawn. Everything else is left open, not filled in.</span>
+        </div>
+      </div>
+
+      <!-- RIGHT 5 COLS: SELECTED PAIR DEEP ARCHITECTURAL CARD -->
+      <aside class="lg:col-span-5 lg:sticky lg:top-16 bg-[var(--paper-deep)] border-2 border-[var(--ink)] p-5 sm:p-6 shadow-[6px_6px_0px_#161514]" aria-label="Selected canonical pair">
+        <div class="flex items-center justify-between gap-2 border-b border-[var(--rule-strong)] pb-3">
+          <div class="min-w-0">
+            <span id="detailIndex" class="mono-meta text-xs font-medium px-2 py-0.5 bg-[var(--ink)] text-[var(--paper)]">
+              PAIR 01 / 10
+            </span>
+            <span id="detailCategoryBadge" class="mono-meta text-[11px] uppercase tracking-wider text-[var(--vermilion)] ml-2">
+              Ten-Year Spine
+            </span>
+          </div>
+          <div class="flex items-center gap-1 shrink-0">
+            <button id="prevPairBtn" type="button" aria-label="Previous canonical pair" class="focus-ring mono-meta text-xs px-3 py-2 border border-[var(--ink)] bg-[var(--paper)] hover:bg-[var(--ink)] hover:text-[var(--paper)] transition-colors">
+              ←
+            </button>
+            <button id="nextPairBtn" type="button" aria-label="Next canonical pair" class="focus-ring mono-meta text-xs px-3 py-2 border border-[var(--ink)] bg-[var(--paper)] hover:bg-[var(--ink)] hover:text-[var(--paper)] transition-colors">
+              →
+            </button>
+          </div>
+        </div>
+
+        <!-- Selected Song & Artist Title -->
+        <div class="mt-5">
+          <div id="detailArtist" class="mono-meta text-xs uppercase tracking-[0.16em] text-[var(--ink-muted)]">
+            Mazzy Star
+          </div>
+          <h3 id="detailSong" class="serif-display text-4xl sm:text-5xl leading-[0.98] text-[var(--ink)] mt-1">
+            Halah
+          </h3>
+        </div>
+
+        <!-- Year Evidence Diagram -->
+        <div class="mt-6 bg-[var(--paper)] border border-[var(--ink)] p-4">
+          <div class="flex items-start justify-between gap-2 mb-2">
+            <span class="mono-meta text-[10px] uppercase tracking-[0.14em] text-[var(--ink-muted)]">
+              Year Evidence
+            </span>
+            <span id="detailSpanMetric" class="mono-meta text-[11px] font-medium text-[var(--ink)] text-right">
+              Present in all 10 recorded years
+            </span>
+          </div>
+
+          <!-- 10-Column Year Grid for the Selected Song -->
+          <div id="detailYearGrid" class="grid grid-cols-10 border border-[var(--ink)] bg-[var(--paper-deep)]">
+            <!-- Populated by JS -->
+          </div>
+          <div class="grid grid-cols-10 mt-1 mono-meta text-[9px] text-center text-[var(--ink-muted)]">
+            <span>'16</span><span>'17</span><span>'18</span><span>'19</span><span>'20</span>
+            <span>'21</span><span>'22</span><span>'23</span><span>'24</span><span>'25</span>
+          </div>
+        </div>
+
+        <!-- Factual vs Editorial Readout -->
+        <div class="mt-5 space-y-4">
+          <div>
+            <h4 class="mono-meta text-[10px] uppercase tracking-[0.16em] text-[var(--ink-muted)] mb-1">
+              Documented Corpus Relation (July 2026 Analysis)
+            </h4>
+            <p id="detailFact" class="text-sm text-[var(--ink)] leading-relaxed font-normal">
+              <!-- Populated by JS -->
+            </p>
+          </div>
+
+          <div class="pt-3 border-t border-[var(--rule-strong)]">
+            <h4 class="mono-meta text-[10px] uppercase tracking-[0.16em] text-[var(--vermilion)] mb-1">
+              Editorial Reading (Why This Matters Here)
+            </h4>
+            <p id="detailTension" class="text-xs sm:text-sm text-[var(--ink-muted)] leading-relaxed">
+              <!-- Populated by JS -->
+            </p>
+          </div>
+
+          <!-- Coexisting Counterparts in the Same Musical World -->
+          <div class="pt-3 border-t border-[var(--rule-strong)]">
+            <div class="flex items-center justify-between mb-1.5">
+              <h4 class="mono-meta text-[10px] uppercase tracking-[0.16em] text-[var(--ink-muted)]">
+                Simultaneous Musical World (2016–2025)
+              </h4>
+              <span class="mono-meta text-[10px] text-[var(--ink-faint)]">Tap to cross-couple</span>
+            </div>
+            <div id="detailCoexistTags" class="flex flex-wrap gap-1.5">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Counter-Comparison Trigger -->
+        <div class="mt-6 pt-4 border-t-2 border-[var(--ink)] flex items-center justify-between gap-2">
+          <div class="text-xs text-[var(--ink-muted)] min-w-0">
+            <span class="mono-meta uppercase text-[10px] block text-[var(--ink)]">Structural Foil:</span>
+            <span id="detailFoilLabel">Compare with Fiona Apple — Paper Bag</span>
+          </div>
+          <button id="jumpFoilBtn" type="button" class="focus-ring mono-meta text-[11px] uppercase tracking-wider px-3 py-2 bg-[var(--ink)] text-[var(--paper)] hover:bg-[var(--vermilion)] transition-colors shrink-0">
+            Inspect Foil ↗
+          </button>
+        </div>
+      </aside>
+
+    </section>
+
+    <!-- EDITORIAL PROVENANCE & BOUNDARY STATEMENT -->
+    <section id="provenanceSection" class="mt-12 border-t-2 border-[var(--ink)] pt-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 bg-[var(--paper-deep)] border border-[var(--ink)] p-5 sm:p-6">
+        <div>
+          <span class="mono-meta text-[10px] uppercase tracking-[0.16em] text-[var(--vermilion)] block mb-1">
+            01 · Content-Specific Relation
+          </span>
+          <p class="text-xs text-[var(--ink)] leading-relaxed">
+            Built around the tension between <strong>continuous annual presence</strong> (Mazzy Star present in all 10 recorded calendar years) and <strong>low-total, long-horizon return</strong> (Fiona Apple’s <em>Paper Bag</em> spanning 8+ years with a much lower total; Air returning strongly in 2022), plus their coexistence with Lana Del Rey, Doja Cat, Charli xcx, PinkPantheress, Azealia Banks, and Bb trickz.
+          </p>
+        </div>
+        <div>
+          <span class="mono-meta text-[10px] uppercase tracking-[0.16em] text-[var(--vermilion)] block mb-1">
+            02 · Invented Interaction Law
+          </span>
+          <p class="text-xs text-[var(--ink)] leading-relaxed">
+            The <strong>Persistence–Return Caliper</strong> and <strong>Coexistence Cross-Coupler</strong> reorder the ten canonical pairs by how they inhabit time. The caliper position of each pair is an editorial placement, not a measured score.
+          </p>
+        </div>
+        <div>
+          <span class="mono-meta text-[10px] uppercase tracking-[0.16em] text-[var(--vermilion)] block mb-1">
+            03 · Unknowns Respected
+          </span>
+          <p class="text-xs text-[var(--ink)] leading-relaxed">
+            Exact play counts, the years of the seven pairs without a stated year-level fact, the endpoints of <em>Paper Bag</em>’s span, and Derick’s private reasons for any gap or return are not invented. They are drawn as open intervals.
+          </p>
+        </div>
+        <div>
+          <span class="mono-meta text-[10px] uppercase tracking-[0.16em] text-[var(--vermilion)] block mb-1">
+            04 · Real vs. Editorial
+          </span>
+          <p class="text-xs text-[var(--ink)] leading-relaxed">
+            <strong>Real:</strong> Derick Syhlman’s 2016–2025 listening corpus, the 10 Canonical Master pairs (Section 20), and the July 2026 historical contrasts. <strong>Editorial:</strong> “Permanent Interior” is an editorial room conceived for the site, not a playlist Derick named.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-[var(--rule-strong)] py-4 px-4 sm:px-6 text-center sm:text-left">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 mono-meta text-[11px] text-[var(--ink-muted)]">
+      <span>DERICK AFTERPARTY · PERMANENT INTERIOR · INDEPENDENT PROTOTYPE</span>
+      <span>NO FABRICATED AUDIO, PLAY COUNTS OR TIMESTAMPS</span>
+    </div>
+  </footer>
+
+  <script>
+    /**
+     * DERICK AFTERPARTY · PERMANENT INTERIOR
+     * Grounded in the Section 20 Canonical Master & July 2026 historical analysis.
+     * No fabricated play counts, no fake audio, no invented emotional motives.
+     */
+
+    const COEXISTING_ARTISTS = [
+      {
+        id: "lana",
+        name: "Lana Del Rey",
+        note: "Coexists with Mazzy Star, Leonard Cohen, and Air—showing that lush, slow-burning interiority spanned both older canon and 2020s releases."
+      },
+      {
+        id: "charli",
+        name: "Charli xcx",
+        note: "Old was never replaced by new: high-velocity club and pop coexisted in the same listening life as Patti Smith, The Smiths, and Fiona Apple."
+      },
+      {
+        id: "doja",
+        name: "Doja Cat",
+        note: "Sharp, playful contemporary pop lived alongside Sneaker Pimps, Gorillaz, and Red Hot Chili Peppers without hierarchy."
+      },
+      {
+        id: "pinkpantheress",
+        name: "PinkPantheress",
+        note: "Brief, looping modern forms shared archive space with long-horizon returns like Fiona Apple’s Paper Bag and Air’s 2022 resurgence."
+      },
+      {
+        id: "azealia",
+        name: "Azealia Banks",
+        note: "Permanent Interior is one room in a multiple musical identity—not a quiet sanctuary sealed off from club energy."
+      },
+      {
+        id: "bbtrickz",
+        name: "Bb trickz",
+        note: "An active appetite for the newest, most irreverent internet culture right alongside Donovan, Leonard Cohen, and Mazzy Star."
+      }
+    ];
+
+    /**
+     * Year cells (2016..2025). Only facts stated in the July 2026 analysis are drawn:
+     *   'anchor'  = documented presence that year
+     *   'surge'   = documented strong return that year
+     *   'span'    = part of a documented multi-year span whose exact endpoints are not recorded here
+     *   'open'    = no year-level claim
+     */
+    const OPEN = Array(10).fill("open");
+    const yearCells = (map) => OPEN.map((c, i) => map[2016 + i] || c);
+
+    /**
+     * tensionScore is an editorial placement on the caliper
+     * (0 = continuous annual anchor, 100 = sparse long-horizon return), not a measurement.
+     */
+    const CANONICAL_PAIRS = [
+      {
+        id: "mazzy-star-halah",
+        index: "01",
+        artist: "Mazzy Star",
+        song: "Halah",
+        tensionScore: 5,
+        category: "10-Year Unbroken Spine",
+        spanMetric: "Present in all 10 recorded years",
+        verifiedStatus: "VERIFIED 10-YEAR PRESENCE",
+        cells: Array(10).fill("anchor"),
+        fact: "Historical July 2026 analysis confirms Mazzy Star is present across all ten recorded calendar years (2016–2025) and returned again later in the available corpus.",
+        tension: "Unlike songs that vanish for half a decade, Halah belongs to an unbroken ten-year spine. Enduring attachment did not fade when newer pop and club obsessions arrived.",
+        foilId: "fiona-apple-paper-bag",
+        foilLabel: "Fiona Apple — Paper Bag (8+ yr span, low total)",
+        coexistLinks: ["lana", "pinkpantheress", "charli"]
+      },
+      {
+        id: "fiona-apple-paper-bag",
+        index: "02",
+        artist: "Fiona Apple",
+        song: "Paper Bag",
+        tensionScore: 96,
+        category: "8+ Year Span · Low Total",
+        spanMetric: "8+ year span · endpoints not recorded here",
+        verifiedStatus: "VERIFIED 8+ YEAR TRACE",
+        cells: Array(10).fill("span"),
+        fact: "Historical July 2026 analysis notes that Fiona Apple had a much lower total than the lifetime leaders, yet Paper Bag spans more than eight years in the preserved trace.",
+        tension: "The core proof that persistence does not require constant frequency. A song can sit quiet for years without being forgotten, holding its place in the room through reach rather than volume.",
+        foilId: "mazzy-star-halah",
+        foilLabel: "Mazzy Star — Halah (present all 10 years)",
+        coexistLinks: ["charli", "doja", "lana"]
+      },
+      {
+        id: "leonard-cohen-smokey-life",
+        index: "03",
+        artist: "Leonard Cohen",
+        song: "The Smokey Life",
+        tensionScore: 38,
+        category: "Deep Album-Oriented Interior",
+        spanMetric: "No year-level claim",
+        verifiedStatus: "CANONICAL SECTION 20 PAIR",
+        cells: OPEN,
+        fact: "Canonical pair #03 from Section 20 of the editorial Master. Year-by-year presence is not stated in the source and is not drawn here.",
+        tension: "The Smokey Life carries a patience that refuses algorithm-driven turnover. Placed beside irreverent internet rap or club tracks, it shows the breadth of the room.",
+        foilId: "gorillaz-5-4",
+        foilLabel: "Gorillaz — 5/4 (rhythmic counterpoint)",
+        coexistLinks: ["lana", "bbtrickz", "azealia"]
+      },
+      {
+        id: "sneaker-pimps-small-town-witch",
+        index: "04",
+        artist: "Sneaker Pimps",
+        song: "Small Town Witch",
+        tensionScore: 68,
+        category: "Nocturnal Trip-Hop",
+        spanMetric: "No year-level claim",
+        verifiedStatus: "CANONICAL SECTION 20 PAIR",
+        cells: OPEN,
+        fact: "Canonical pair #04 from Section 20 (Sneaker Pimps — Small Town Witch). Year-by-year presence is not stated in the source and is not drawn here.",
+        tension: "Sharp, sardonic, and trip-hop inflected, Small Town Witch bridges the smoky interiority of Mazzy Star with the bitten-down edge of the contemporary pop and club selections.",
+        foilId: "the-smiths-please",
+        foilLabel: "The Smiths — Please Please Please…",
+        coexistLinks: ["doja", "azealia", "charli"]
+      },
+      {
+        id: "gorillaz-5-4",
+        index: "05",
+        artist: "Gorillaz",
+        song: "5/4",
+        tensionScore: 28,
+        category: "Multi-Genre Hinge",
+        spanMetric: "No year-level claim",
+        verifiedStatus: "CANONICAL SECTION 20 PAIR",
+        cells: OPEN,
+        fact: "Canonical pair #05 from Section 20, and named in the brief among the core artists (with Patti Smith, The Smiths, Air, Mazzy Star, Fiona Apple) coexisting with his modern pop/club history.",
+        tension: "Polyrhythmic and irreverent, 5/4 refuses the cliché that an 'interior' room must be hushed or solemn. It connects guitar-driven alt-canon to internet-era hybridity.",
+        foilId: "leonard-cohen-smokey-life",
+        foilLabel: "Leonard Cohen — The Smokey Life",
+        coexistLinks: ["doja", "charli", "bbtrickz", "pinkpantheress"]
+      },
+      {
+        id: "donovan-hurdy-gurdy-man",
+        index: "06",
+        artist: "Donovan",
+        song: "Hurdy Gurdy Man",
+        tensionScore: 74,
+        category: "Long-Memory Psychedelic Trace",
+        spanMetric: "No year-level claim",
+        verifiedStatus: "CANONICAL SECTION 20 PAIR",
+        cells: OPEN,
+        fact: "Canonical pair #06 from Section 20 (Donovan — Hurdy Gurdy Man). Year-by-year presence is not stated in the source and is not drawn here.",
+        tension: "A 1968 hypnotic drone sitting inside a 2016–2025 digital archive shows how unchronological real musical attachment is.",
+        foilId: "air-playground-love",
+        foilLabel: "Air — Playground Love (2022 return)",
+        coexistLinks: ["lana", "bbtrickz", "doja"]
+      },
+      {
+        id: "patti-smith-dancing-barefoot",
+        index: "07",
+        artist: "Patti Smith",
+        song: "Dancing Barefoot",
+        tensionScore: 22,
+        category: "Enduring Attachment Pillar",
+        spanMetric: "No year-level claim",
+        verifiedStatus: "CANONICAL SECTION 20 PAIR",
+        cells: OPEN,
+        fact: "Canonical pair #07 from Section 20, and highlighted in the brief as an exemplar of enduring multi-year attachment to foundational artists. Specific years are not stated and are not drawn.",
+        tension: "Dancing Barefoot is incantatory and unsentimental. Fierce rock lineage and hyper-modern pop occupied the same ear.",
+        foilId: "fiona-apple-paper-bag",
+        foilLabel: "Fiona Apple — Paper Bag",
+        coexistLinks: ["azealia", "charli", "lana"]
+      },
+      {
+        id: "the-smiths-please",
+        index: "08",
+        artist: "The Smiths",
+        song: "Please Please Please Let Me Get What I Want",
+        tensionScore: 44,
+        category: "Brevity & Long Residence",
+        spanMetric: "No year-level claim",
+        verifiedStatus: "CANONICAL SECTION 20 PAIR",
+        cells: OPEN,
+        fact: "Canonical pair #08 from Section 20, and named in the brief among the enduring artists that coexisted with Lana Del Rey, Doja Cat, Charli xcx, and PinkPantheress.",
+        tension: "Barely under two minutes long, yet able to stay in a listener’s architecture for a decade. Brevity of track vs. permanence of residence.",
+        foilId: "air-playground-love",
+        foilLabel: "Air — Playground Love (2022 return)",
+        coexistLinks: ["pinkpantheress", "lana", "charli"]
+      },
+      {
+        id: "air-playground-love",
+        index: "09",
+        artist: "Air",
+        song: "Playground Love",
+        tensionScore: 88,
+        category: "2022 Resurgence",
+        spanMetric: "Strong documented return in 2022",
+        verifiedStatus: "VERIFIED 2022 RETURN",
+        cells: yearCells({ 2022: "surge" }),
+        fact: "Included in the Section 20 Canonical Master; historical July 2026 analysis specifically records that Air returned strongly in 2022.",
+        tension: "Re-entry after distance does not need to be read as a crisis or nostalgia trip. In 2022, Air’s weightless nocturnal chamber-pop simply reasserted itself at full strength.",
+        foilId: "mazzy-star-halah",
+        foilLabel: "Mazzy Star — Halah (continuous 10-yr presence)",
+        coexistLinks: ["pinkpantheress", "lana", "charli"]
+      },
+      {
+        id: "rhcp-breaking-the-girl",
+        index: "10",
+        artist: "Red Hot Chili Peppers",
+        song: "Breaking the Girl",
+        tensionScore: 60,
+        category: "6/8 Acoustic-Percussive",
+        spanMetric: "No year-level claim",
+        verifiedStatus: "CANONICAL SECTION 20 PAIR",
+        cells: OPEN,
+        fact: "Canonical pair #10 from Section 20 (Red Hot Chili Peppers — Breaking the Girl), completing the ten artist/song pairs of Permanent Interior.",
+        tension: "Melodic, waltz-timed, and percussive—it keeps the room from collapsing into a single genre mood, holding open the door between 90s alt-rock and everything that followed.",
+        foilId: "gorillaz-5-4",
+        foilLabel: "Gorillaz — 5/4",
+        coexistLinks: ["doja", "azealia", "bbtrickz"]
+      }
+    ];
+
+    // One definition of the "equilibrium" band, shared by the readout, recession and sort.
+    const EQ_MIN = 40;
+    const EQ_MAX = 60;
+    const isEquilibrium = (v) => v >= EQ_MIN && v <= EQ_MAX;
+
+    // APPLICATION STATE
+    const state = {
+      caliperValue: 50,
+      selectedPairId: "mazzy-star-halah",
+      activeCoexistId: null
+    };
+
+    // DOM ELEMENTS
+    const $ = (id) => document.getElementById(id);
+    const tensionSlider = $("tensionSlider");
+    const lensCoordinate = $("lensCoordinate");
+    const lensHeadline = $("lensHeadline");
+    const lensDescription = $("lensDescription");
+    const canonicalList = $("canonicalList");
+    const coexistenceContainer = $("coexistenceContainer");
+    const clearCoexistBtn = $("clearCoexistBtn");
+    const detailIndex = $("detailIndex");
+    const detailCategoryBadge = $("detailCategoryBadge");
+    const detailArtist = $("detailArtist");
+    const detailSong = $("detailSong");
+    const detailSpanMetric = $("detailSpanMetric");
+    const detailYearGrid = $("detailYearGrid");
+    const detailFact = $("detailFact");
+    const detailTension = $("detailTension");
+    const detailCoexistTags = $("detailCoexistTags");
+    const detailFoilLabel = $("detailFoilLabel");
+    const jumpFoilBtn = $("jumpFoilBtn");
+
+    const CELL_TITLES = {
+      anchor: "Documented presence",
+      surge: "Documented strong return",
+      span: "Within the 8+ year span (exact years not recorded here)",
+      open: "No year-level claim"
+    };
+
+    function getProcessedPairs() {
+      const val = state.caliperValue;
+      const eq = isEquilibrium(val);
+      return CANONICAL_PAIRS.map(pair => {
+        const distance = Math.abs(pair.tensionScore - val);
+        const matchesCoexist = !state.activeCoexistId || pair.coexistLinks.includes(state.activeCoexistId);
+        let relevance = eq ? 85 : 100 - distance;
+        if (!matchesCoexist) relevance -= 60;
+        return {
+          ...pair,
+          relevance,
+          isReceded: (!eq && distance > 52) || !matchesCoexist
+        };
+      }).sort((a, b) => {
+        // In equilibrium with no filter, keep Section 20 order (01..10)
+        if (eq && !state.activeCoexistId) return a.index.localeCompare(b.index);
+        return b.relevance - a.relevance || a.index.localeCompare(b.index);
+      });
+    }
+
+    function updateLensReadout() {
+      const v = state.caliperValue;
+      const padded = String(v).padStart(3, "0");
+
+      if (state.activeCoexistId) {
+        const artist = COEXISTING_ARTISTS.find(a => a.id === state.activeCoexistId);
+        lensCoordinate.textContent = `COEXISTENCE · ${artist.name.toUpperCase()}`;
+        lensHeadline.textContent = `${artist.name} × Permanent Interior`;
+        lensDescription.textContent = artist.note;
+        return;
+      }
+
+      if (v < EQ_MIN) {
+        lensCoordinate.textContent = `INDEX: ${padded} / CONTINUOUS SPINE`;
+        lensHeadline.textContent = "Unbroken Annual Presence (2016–2025)";
+        lensDescription.textContent = "Foregrounding Mazzy Star (present in all 10 recorded calendar years) and the pairs placed nearest to continuous presence.";
+      } else if (v > EQ_MAX) {
+        lensCoordinate.textContent = `INDEX: ${padded} / LONG-GAP RETURN`;
+        lensHeadline.textContent = "Persistence Without Constant Frequency";
+        lensDescription.textContent = "Foregrounding Fiona Apple’s Paper Bag (8+ year trace despite a much lower total) and Air’s strong 2022 return—music that leaves and re-enters without drama.";
+      } else {
+        lensCoordinate.textContent = `INDEX: ${padded} / EQUILIBRIUM`;
+        lensHeadline.textContent = "Full Ten-Year Architectural Section";
+        lensDescription.textContent = "All ten canonical pairs in their Section 20 sequence. Drag the caliper left or right to test continuous presence against multi-year return.";
+      }
+    }
+
+    function setCoexist(id) {
+      state.activeCoexistId = state.activeCoexistId === id ? null : id;
+      clearCoexistBtn.classList.toggle("hidden", !state.activeCoexistId);
+    }
+
+    function renderCoexistencePills() {
+      coexistenceContainer.innerHTML = "";
+      COEXISTING_ARTISTS.forEach(artist => {
+        const isActive = state.activeCoexistId === artist.id;
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = `coexist-pill focus-ring mono-meta text-[11px] px-2.5 py-1.5 border transition-colors ${
+          isActive
+            ? "bg-[var(--vermilion)] text-[var(--paper)] border-[var(--ink)] font-medium shadow-[2px_2px_0px_#161514]"
+            : "bg-[var(--paper)] text-[var(--ink)] border-[var(--ink)] hover:bg-[var(--ink)] hover:text-[var(--paper)]"
+        }`;
+        btn.textContent = artist.name;
+        btn.setAttribute("aria-pressed", String(isActive));
+        btn.addEventListener("click", () => {
+          setCoexist(artist.id);
+          // When coupling, select the top matching pair
+          if (state.activeCoexistId) state.selectedPairId = getProcessedPairs()[0].id;
+          renderAll({ focusId: null });
+          coexistenceContainer.children[COEXISTING_ARTISTS.indexOf(artist)].focus();
+        });
+        coexistenceContainer.appendChild(btn);
+      });
+    }
+
+    function miniCell(type, idx) {
+      const title = `20${16 + idx}: ${CELL_TITLES[type]}`;
+      const inner = {
+        anchor: `<span class="w-2.5 h-2.5 bg-[var(--ink)] block"></span>`,
+        surge: `<span class="w-3 h-3 bg-[var(--vermilion)] border border-[var(--ink)] block"></span>`,
+        span: `<span class="undated-span"></span>`,
+        open: `<span class="w-1.5 h-1.5 rounded-full bg-[var(--ink-faint)]/40 block"></span>`
+      }[type];
+      return `<div class="span-cell" title="${title}">${inner}</div>`;
+    }
+
+    function renderCanonicalList(focusId) {
+      const pairs = getProcessedPairs();
+      canonicalList.innerHTML = "";
+
+      pairs.forEach(pair => {
+        const isSelected = pair.id === state.selectedPairId;
+        const row = document.createElement("div");
+        row.id = `pair-${pair.id}`;
+        row.setAttribute("role", "option");
+        row.setAttribute("aria-selected", String(isSelected));
+        row.setAttribute("aria-label", `${pair.index}. ${pair.song} by ${pair.artist}. ${pair.spanMetric}.`);
+        row.tabIndex = isSelected ? 0 : -1; // roving tabindex: one tab stop for the list
+        row.dataset.pairId = pair.id;
+        row.setAttribute("data-focused", String(isSelected));
+        row.setAttribute("data-receded", String(pair.isReceded && !isSelected));
+        row.className = "stratum-row focus-ring cursor-pointer py-3.5 px-3 sm:px-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3";
+
+        row.innerHTML = `
+          <div class="flex items-baseline gap-3 min-w-0">
+            <span class="mono-meta text-xs ${isSelected ? "text-[var(--vermilion)] font-semibold" : "text-[var(--ink-faint)]"} shrink-0">
+              ${pair.index}
+            </span>
+            <div class="min-w-0">
+              <div class="flex flex-wrap items-baseline gap-x-2">
+                <span class="serif-display text-2xl sm:text-3xl leading-none text-[var(--ink)] tracking-tight">
+                  ${pair.song}
+                </span>
+                <span class="mono-meta text-xs uppercase tracking-wider text-[var(--ink-muted)]">
+                  — ${pair.artist}
+                </span>
+              </div>
+              <div class="mono-meta text-[10px] uppercase tracking-wider text-[var(--ink-muted)] mt-1">
+                ${pair.verifiedStatus} · ${pair.category}
+              </div>
+            </div>
+          </div>
+          <div class="w-full sm:w-52 shrink-0" aria-hidden="true">
+            <div class="grid grid-cols-10 border border-[var(--ink)] bg-[var(--paper)]">
+              ${pair.cells.map(miniCell).join("")}
+            </div>
+          </div>
+        `;
+
+        row.addEventListener("click", () => {
+          state.selectedPairId = pair.id;
+          renderAll({ focusId: pair.id });
+        });
+
+        canonicalList.appendChild(row);
+      });
+
+      if (focusId) {
+        const target = document.getElementById(`pair-${focusId}`);
+        if (target) target.focus({ preventScroll: false });
+      }
+    }
+
+    function renderDetailCard() {
+      const pair = CANONICAL_PAIRS.find(p => p.id === state.selectedPairId) || CANONICAL_PAIRS[0];
+
+      detailIndex.textContent = `PAIR ${pair.index} / 10`;
+      detailCategoryBadge.textContent = pair.category;
+      detailArtist.textContent = pair.artist;
+      detailSong.textContent = pair.song;
+      detailSpanMetric.textContent = pair.spanMetric;
+      detailFact.textContent = pair.fact;
+      detailTension.textContent = pair.tension;
+      detailFoilLabel.textContent = `Compare with ${pair.foilLabel}`;
+      detailYearGrid.setAttribute("aria-label", `Year evidence for ${pair.song}: ${pair.spanMetric}`);
+      detailYearGrid.setAttribute("role", "img");
+
+      detailYearGrid.innerHTML = pair.cells.map((type, idx) => {
+        const title = `20${16 + idx}: ${CELL_TITLES[type]}`;
+        const base = "h-10 border-r border-[var(--rule)] last:border-none flex items-center justify-center";
+        if (type === "anchor") {
+          return `<div class="${base} bg-[var(--paper)]" title="${title}"><span class="w-3.5 h-3.5 bg-[var(--ink)] block"></span></div>`;
+        } else if (type === "surge") {
+          return `<div class="${base} bg-[var(--vermilion)]/15" title="${title}"><span class="w-4 h-4 bg-[var(--vermilion)] border border-[var(--ink)] block"></span></div>`;
+        } else if (type === "span") {
+          return `<div class="${base}" title="${title}"><span class="undated-span"></span></div>`;
+        }
+        return `<div class="${base}" title="${title}"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ink-faint)]/50 block"></span></div>`;
+      }).join("");
+
+      detailCoexistTags.innerHTML = "";
+      pair.coexistLinks.forEach(coId => {
+        const artist = COEXISTING_ARTISTS.find(a => a.id === coId);
+        if (!artist) return;
+        const tag = document.createElement("button");
+        tag.type = "button";
+        const isCurrent = state.activeCoexistId === coId;
+        tag.className = `focus-ring mono-meta text-[11px] px-2.5 py-1.5 border border-[var(--ink)] transition-colors ${
+          isCurrent
+            ? "bg-[var(--vermilion)] text-[var(--paper)]"
+            : "bg-[var(--paper)] text-[var(--ink)] hover:bg-[var(--ink)] hover:text-[var(--paper)]"
+        }`;
+        tag.textContent = `⇄ ${artist.name}`;
+        tag.setAttribute("aria-pressed", String(isCurrent));
+        tag.addEventListener("click", () => {
+          setCoexist(coId);
+          renderAll({ focusId: null });
+        });
+        detailCoexistTags.appendChild(tag);
+      });
+    }
+
+    function selectByOffset(direction, focusList) {
+      // Steps through the list in its currently displayed order
+      const order = getProcessedPairs().map(p => p.id);
+      const i = order.indexOf(state.selectedPairId);
+      state.selectedPairId = order[(i + direction + order.length) % order.length];
+      renderAll({ focusId: focusList ? state.selectedPairId : null });
+    }
+
+    function setCaliper(v) {
+      state.caliperValue = v;
+      tensionSlider.value = v;
+      if (v <= 12) state.selectedPairId = "mazzy-star-halah";
+      else if (v >= 90) state.selectedPairId = "fiona-apple-paper-bag";
+    }
+
+    function renderAll({ focusId = null } = {}) {
+      updateLensReadout();
+      renderCoexistencePills();
+      renderCanonicalList(focusId);
+      renderDetailCard();
+    }
+
+    // EVENT LISTENERS
+    tensionSlider.addEventListener("input", (e) => {
+      setCaliper(parseInt(e.target.value, 10));
+      renderAll();
+    });
+
+    document.querySelectorAll(".preset-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        setCaliper(parseInt(btn.dataset.preset, 10));
+        renderAll();
+      });
+    });
+
+    jumpFoilBtn.addEventListener("click", () => {
+      const pair = CANONICAL_PAIRS.find(p => p.id === state.selectedPairId);
+      const foil = pair && CANONICAL_PAIRS.find(p => p.id === pair.foilId);
+      if (!foil) return;
+      // Clear a coexistence filter the foil would not match, so it is not hidden
+      if (state.activeCoexistId && !foil.coexistLinks.includes(state.activeCoexistId)) setCoexist(state.activeCoexistId);
+      state.caliperValue = foil.tensionScore;
+      tensionSlider.value = foil.tensionScore;
+      state.selectedPairId = foil.id;
+      renderAll();
+    });
+
+    clearCoexistBtn.addEventListener("click", () => {
+      state.activeCoexistId = null;
+      clearCoexistBtn.classList.add("hidden");
+      renderAll();
+      tensionSlider.focus();
+    });
+
+    $("prevPairBtn").addEventListener("click", () => selectByOffset(-1, false));
+    $("nextPairBtn").addEventListener("click", () => selectByOffset(1, false));
+
+    $("toggleNoteBtn").addEventListener("click", () => {
+      $("provenanceSection").scrollIntoView({ behavior: "smooth" });
+    });
+
+    // Keyboard navigation inside the list only, so arrow keys still scroll the page elsewhere
+    canonicalList.addEventListener("keydown", (e) => {
+      const row = e.target.closest("[role=option]");
+      if (!row) return;
+      if (e.key === "ArrowDown" || e.key === "j") {
+        e.preventDefault();
+        selectByOffset(1, true);
+      } else if (e.key === "ArrowUp" || e.key === "k") {
+        e.preventDefault();
+        selectByOffset(-1, true);
+      } else if (e.key === "Home" || e.key === "End") {
+        e.preventDefault();
+        const order = getProcessedPairs();
+        state.selectedPairId = (e.key === "Home" ? order[0] : order[order.length - 1]).id;
+        renderAll({ focusId: state.selectedPairId });
+      } else if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        state.selectedPairId = row.dataset.pairId;
+        renderAll({ focusId: row.dataset.pairId });
+      }
+    });
+
+    // INITIALIZE
+    renderAll();
+  </script>
+</body>
+</html>
